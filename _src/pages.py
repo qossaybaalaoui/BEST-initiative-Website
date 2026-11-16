@@ -134,9 +134,12 @@ exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "methodology.
 page("chemicals/methodology/index.html", "Methodology — BEST Chemicals", "How BEST Chemicals methods calculate cradle-to-gate product carbon footprints: steps, emission sources, key rules and data quality.",
      "chemicals", "chem-methodology", chem_hero("Methodology", "How a BEST Chemicals footprint is calculated — the steps, what is counted, the key rules and how data quality is rated.") + METHOD,
      theme="chemicals", subnav=True)
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "label.py")).read())
+page("chemicals/label-verification/index.html", "Label &amp; Verification — BEST Chemicals", "The BEST carbon label, performance tiers, how results are verified and what verifiers check.",
+     "chemicals", "chem-label", chem_hero("Label &amp; Verification", "How verified results become the BEST carbon label — and what independent verifiers check.") + LABEL,
+     theme="chemicals", subnav=True)
 for slug, pid, t, lead in [
     ("benchmarks", "chem-benchmarks", "Benchmarks", "BEST, BETTER and GOOD performance bands for each product, with the evidence behind them."),
-    ("label-verification", "chem-label", "Label &amp; Verification", "The BEST carbon label, the data quality rating and what verifiers check."),
 ]:
     page(f"chemicals/{slug}/index.html", f"{t} — BEST Chemicals", lead, "chemicals", pid,
          chem_hero(t, lead) + '<section class="section"><div class="container"><div class="placeholder">This page is being prepared.</div></div></section>\n',

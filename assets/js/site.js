@@ -163,6 +163,28 @@
     select(0);
   });
 
+  /* ---------- Carbon label demo: pick a tier ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-label-demo]'), function (demo) {
+    var TIERS = {
+      best: { pos: '12.5%', chip: 'tier-best', name: 'BEST', v: '1.10', text: 'Top band among comparable plants' },
+      better: { pos: '37.5%', chip: 'tier-better', name: 'BETTER', v: '1.40', text: 'Better than the typical plant' },
+      good: { pos: '62.5%', chip: 'tier-good', name: 'GOOD', v: '1.70', text: 'Within the range of comparable plants' },
+      above: { pos: '87.5%', chip: 'tier-above', name: 'ABOVE RANGE', v: '2.30', text: 'Above the GOOD threshold' }
+    };
+    var marker = demo.querySelector('.cl-marker'), chip = demo.querySelector('.cl-chip'),
+        value = demo.querySelector('.cl-value .v'), desc = demo.querySelector('.cl-desc');
+    var buttons = demo.querySelectorAll('.tier-picker button');
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.addEventListener('click', function () {
+        var t = TIERS[b.getAttribute('data-tier')];
+        Array.prototype.forEach.call(buttons, function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        marker.style.left = t.pos;
+        chip.className = 'tier cl-chip ' + t.chip; chip.textContent = t.name;
+        value.textContent = t.v; desc.textContent = t.text;
+      });
+    });
+  });
+
   /* ---------- Gentle fade-in on scroll ---------- */
   var fades = document.querySelectorAll('.fade, .sub-card');
   if ('IntersectionObserver' in window) {

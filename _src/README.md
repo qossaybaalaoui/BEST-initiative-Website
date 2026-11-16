@@ -14,3 +14,4 @@ Run it from the repository root after editing any script or `assets/css`/`assets
 - `about.py`       About page and shared components (icons, tiles, stepper, tabs)
 - `products.py`    BEST Chemicals → Products
 - `methodology.py` BEST Chemicals → Methodology
+- `label.py`       BEST Chemicals → Label & Verification
