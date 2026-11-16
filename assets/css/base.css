@@ -276,3 +276,45 @@ a.card:hover { border-color: var(--accent); }
   .js .fade { opacity: 1; transform: none; transition: none; }
   .js .step-panel.fade-swap, .js .tab-panel.fade-swap { animation: none; }
 }
+
+/* ---------- Products page ---------- */
+.chain { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); }
+.chain li { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); padding: var(--space-6); }
+.chain li:not(:last-child)::after { content: "→"; position: absolute; right: calc(-1 * var(--space-6)); top: 50%; width: var(--space-6); transform: translateY(-50%); text-align: center; color: var(--ink-muted); font-size: 20px; }
+.chain li.is-best { border-color: var(--accent); background: var(--accent-tint); }
+.chain .tag { display: inline-block; margin-bottom: 8px; font: 700 11px/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); }
+.chain h3 { font-size: 18px; margin-bottom: 4px; }
+.chain p { margin: 0; color: var(--ink-muted); font-size: 14px; }
+@media (max-width: 860px) { .chain { grid-template-columns: 1fr 1fr; } .chain li::after { display: none; } }
+
+.product-tabs .tab-list { margin-bottom: 0; }
+.product-panel { margin-top: var(--space-6); display: grid; gap: var(--space-6); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.facts div { padding: var(--space-4) var(--space-6); border-right: 1px solid var(--line); }
+.facts div:last-child { border-right: 0; }
+.facts dt { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.facts dd { margin: 0; font-weight: 500; }
+.routes { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.routes span { padding: 8px 14px; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--line); font-size: 14px; }
+.routes span b { font-weight: 600; }
+.sub-h { font: 600 13px/1 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 var(--space-4); }
+
+.example { display: grid; grid-template-columns: minmax(240px, 1fr) 2fr; gap: var(--space-10); align-items: center; background: var(--dark); color: #fff; border-radius: var(--radius-md); padding: var(--space-10); }
+.example .label { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-on-dark); margin-bottom: var(--space-2); }
+.example .big { font: 700 64px/1 var(--font-display); letter-spacing: -0.02em; }
+.example .unit { font-size: 15px; color: #C9DAD6; margin-top: 6px; }
+.example .tier { margin-top: var(--space-4); }
+.example h3 { color: #fff; font-size: 18px; margin-bottom: var(--space-4); }
+.example .note { font-size: 13px; color: #B8C9C5; margin: var(--space-4) 0 0; }
+.drivers { display: flex; height: 14px; border-radius: var(--radius-pill); overflow: hidden; background: rgba(255,255,255,.15); }
+.drivers span { display: block; height: 100%; }
+.drivers .d1 { background: var(--accent-on-dark); }
+.drivers .d2 { background: #F3D9A4; }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: 10px; font-size: 14px; color: #DCE7E4; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.ex-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+.ex-stats div { border-top: 1px solid rgba(255,255,255,.2); padding-top: 10px; }
+.ex-stats dt { font-size: 12px; color: #B8C9C5; }
+.ex-stats dd { margin: 2px 0 0; font: 600 18px/1.2 var(--font-display); }
+@media (max-width: 760px) { .example { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-6); } .example .big { font-size: 48px; } }
+.actions-row { display: flex; flex-wrap: wrap; gap: 12px; }
