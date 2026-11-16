@@ -200,3 +200,29 @@ a.card:hover { border-color: var(--accent); }
 .cta-band { background: var(--dark); color: #fff; border-radius: var(--radius-md); padding: var(--space-10); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-6); background-image: url("../img/hero-pattern.svg"); background-size: 140px 122px; }
 .cta-band h2 { color: #fff; margin: 0 0 var(--space-2); font-size: clamp(24px, 3vw, 32px); }
 .cta-band p { margin: 0; color: #DCE7E4; max-width: 560px; }
+
+/* ---------- Reveal: click-to-open tiles (reusable) ----------
+   Without JavaScript everything stays open; html.js collapses the panels. */
+.reveal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); align-items: start; }
+.reveal-tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); transition: border-color .2s, background-color .2s; }
+.reveal-tile:hover { border-color: var(--accent); }
+.reveal-btn { display: flex; align-items: center; gap: var(--space-4); width: 100%; min-height: 88px; padding: var(--space-4) var(--space-6); background: none; border: 0; border-radius: var(--radius-md); text-align: left; cursor: pointer; color: var(--ink); font: inherit; }
+.reveal-icon { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-tint); color: var(--accent-strong); transition: background-color .2s, color .2s; }
+.reveal-icon svg { width: 24px; height: 24px; }
+.reveal-title { flex: 1; font: 500 18px/1.25 var(--font-display); }
+.reveal-toggle { flex: none; position: relative; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); transition: transform .3s ease, border-color .2s; }
+.reveal-toggle::before, .reveal-toggle::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; background: var(--ink); transform: translate(-50%, -50%); }
+.reveal-toggle::after { transform: translate(-50%, -50%) rotate(90deg); }
+.reveal-panel p { margin: 0; padding: 0 var(--space-6) var(--space-6) calc(var(--space-6) + 48px + var(--space-4)); color: var(--ink-muted); font-size: 15px; line-height: 1.55; }
+.js .reveal-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+.js .reveal-panel > div { overflow: hidden; visibility: hidden; transition: visibility 0s .3s; }
+.js .reveal-btn[aria-expanded="true"] + .reveal-panel { grid-template-rows: 1fr; }
+.js .reveal-btn[aria-expanded="true"] + .reveal-panel > div { visibility: visible; transition-delay: 0s; }
+.reveal-tile.is-open { border-color: var(--accent); background: var(--accent-tint); }
+.reveal-tile.is-open .reveal-icon { background: var(--accent-strong); color: #fff; }
+.reveal-tile.is-open .reveal-toggle { transform: rotate(45deg); border-color: var(--accent); }
+.reveal-hint { font-size: 14px; color: var(--ink-muted); margin: calc(-1 * var(--space-6)) 0 var(--space-6); }
+@media (max-width: 520px) { .reveal-panel p { padding-left: var(--space-6); } }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal-panel, .reveal-toggle, .reveal-tile, .reveal-icon { transition: none; }
+}

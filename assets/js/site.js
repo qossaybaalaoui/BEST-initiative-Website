@@ -108,6 +108,15 @@
     sectionNav.outerHTML = '<nav class="section-nav" aria-label="' + esc(current.label) + '"><div class="container">' + title + '<ul>' + tabs + '</ul></div></nav>';
   }
 
+  /* ---------- Reveal tiles: click to open / close ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal-btn'), function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.closest('.reveal-tile').classList.toggle('is-open', open);
+    });
+  });
+
   /* ---------- Footer ---------- */
   var footer = document.getElementById('site-footer');
   if (footer) {

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
 <title>About — BEST</title>
 <meta name="description" content="BEST is developed by UC Berkeley researchers with international stakeholders: mission, principles, method development, value, partnership and roadmap.">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
@@ -69,13 +70,32 @@
 <h2>Six rules every BEST method follows</h2>
 <p>They apply to every product and sector, so results stay comparable as BEST grows.</p>
 </div>
-<div class="principles">
-<div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg><div><h3>One boundary</h3><p>Cradle-to-gate for 1 tonne of specification-compliant product, reported by production route.</p></div></div>
-<div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><div><h3>Transparent electricity</h3><p>Location-based results are mandatory; market-based results are shown separately where contracts are used.</p></div></div>
-<div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg><div><h3>Conservative carbon capture</h3><p>Captured CO₂ is credited only with complete evidence of capture and permanent storage.</p></div></div>
-<div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><div><h3>Data quality you can see</h3><p>A clear data hierarchy and a Data Quality Rating with Low, Medium or High uncertainty.</p></div></div>
-<div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c8 0 14-6 14-15C10 4 5 9 5 15v4z"/><path d="M5 19 13 11"/></svg><div><h3>Fossil and biogenic kept apart</h3><p>Biogenic carbon is tracked and reported separately — never netted as a credit.</p></div></div>
-<div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5 20v-5h4v5M10 20V10h4v10M15 20V5h4v15"/></svg><div><h3>Performance tiers</h3><p>Every result is placed in a BEST, BETTER or GOOD band for comparison across facilities.</p></div></div>
+<p class="reveal-hint">Select a principle to read more.</p>
+<div class="reveal-grid">
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="pr-1"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg></span><span class="reveal-title">One boundary</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="pr-1"><div><p>Cradle-to-gate for 1 tonne of specification-compliant product, reported by production route.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="pr-2"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><span class="reveal-title">Transparent electricity</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="pr-2"><div><p>Location-based results are mandatory; market-based results are shown separately where contracts are used.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="pr-3"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></span><span class="reveal-title">Conservative carbon capture</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="pr-3"><div><p>Captured CO₂ is credited only with complete evidence of capture and permanent storage.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="pr-4"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="reveal-title">Visible data quality</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="pr-4"><div><p>A clear data hierarchy and a Data Quality Rating with Low, Medium or High uncertainty.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="pr-5"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c8 0 14-6 14-15C10 4 5 9 5 15v4z"/><path d="M5 19 13 11"/></svg></span><span class="reveal-title">Fossil and biogenic apart</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="pr-5"><div><p>Biogenic carbon is tracked and reported separately — never netted as a credit.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="pr-6"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M5 20v-5h4v5M10 20V10h4v10M15 20V5h4v15"/></svg></span><span class="reveal-title">Performance tiers</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="pr-6"><div><p>Every result is placed in a BEST, BETTER or GOOD band for comparison across facilities.</p></div></div>
+</div>
 </div>
 <div class="standards" aria-label="Standards BEST builds on">
 <span>ISO 14040 / 14044</span><span>ISO 14067</span><span>TfS PCF Guideline</span><span>IPCC AR6 GWP-100</span><span>No offsets in the footprint</span>
