@@ -138,6 +138,7 @@
         if (on) { panels[j].classList.remove('fade-swap'); void panels[j].offsetWidth; panels[j].classList.add('fade-swap'); }
       });
       if (focus) tabs[i].focus();
+      if (tabs.length > 1) list.style.setProperty('--progress', i / (tabs.length - 1));
       var root = list.parentNode;
       Array.prototype.forEach.call(root.querySelectorAll('[data-step]'), function (b) {
         var dir = b.getAttribute('data-step');
@@ -161,6 +162,36 @@
       });
     });
     select(0);
+
+    /* Autoplay (data-autoplay="ms"): when the stepper scrolls into view, walk through the
+       steps once; any click, key press or hover hands control back to the visitor. */
+    var box = list.parentNode, ms = parseInt(box.getAttribute('data-autoplay'), 10);
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!ms || still || !('IntersectionObserver' in window)) return;
+    var timer = document.createElement('div');
+    timer.className = 'step-timer'; timer.setAttribute('aria-hidden', 'true');
+    timer.style.setProperty('--dur', ms + 'ms'); timer.innerHTML = '<i></i>';
+    box.appendChild(timer);
+    var cur = 0, handle = null, stopped = false;
+    function tick() {
+      timer.classList.remove('run'); void timer.offsetWidth; timer.classList.add('run');
+      handle = setTimeout(function () {
+        if (cur >= tabs.length - 1) { stop(); return; }
+        cur += 1; select(cur); tick();
+      }, ms);
+    }
+    function stop() { stopped = true; clearTimeout(handle); timer.remove(); }
+    ['click', 'keydown', 'touchstart', 'focusin'].forEach(function (ev) {
+      box.addEventListener(ev, function () { if (!stopped) stop(); }, { passive: true });
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (stopped) { io.disconnect(); return; }
+        if (e.isIntersecting && !handle) tick();
+        else if (!e.isIntersecting && handle) { clearTimeout(handle); handle = null; timer.classList.remove('run'); }
+      });
+    }, { threshold: 0.6 });
+    io.observe(box);
   });
 
   /* ---------- Carbon label demo: pick a tier ---------- */

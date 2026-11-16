@@ -1,3 +1,4 @@
+import re
 def I(path):
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{path}</svg>'
 ICON = {
@@ -14,6 +15,9 @@ ICON = {
  "bank": I('<path d="M3 10h18L12 4z"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>'),
  "megaphone": I('<path d="M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 9a4 4 0 0 1 0 6"/>'),
  "flag": I('<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>'),
+ "method": I('<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="m10 14 2 2 4-4"/>'),
+ "calc": I('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8v3H8z"/><path d="M8.5 14h1M11.5 14h1M14.5 14h1M8.5 17.5h1M11.5 17.5h1M14.5 17.5h1"/>'),
+ "label": I('<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/>'),
 }
 
 def tiles(prefix, items, cols=None):
@@ -27,14 +31,25 @@ def tiles(prefix, items, cols=None):
 '''
     return out + '</div>\n'
 
-def stepper(prefix, label, items):
-    tabs = "".join(f'<button class="step-tab" type="button" role="tab" id="{prefix}-t{i}" aria-controls="{prefix}-p{i}" aria-selected="{"true" if i==1 else "false"}"><span class="dot">{i:02d}</span><span>{t}</span></button>' for i, (t, d) in enumerate(items, 1))
-    panels = "".join(f'''<div class="step-panel" role="tabpanel" id="{prefix}-p{i}" aria-labelledby="{prefix}-t{i}" tabindex="0">
-<div><h3>{t}</h3><p>{d}</p></div>
+def drawn(k):
+    # same icon, with each stroke measured so it can be drawn in when the step opens
+    return re.sub(r'<(path|rect|circle|ellipse)', r'<\1 pathLength="100"', ICON[k])
+
+def stepper(prefix, label, items, autoplay=False):
+    icons = len(items[0]) == 3
+    if not icons: items = [(None, t, d) for t, d in items]
+    dot = lambda i, k: ICON[k] if k else f'{i:02d}'
+    tabs = "".join(f'<button class="step-tab" type="button" role="tab" id="{prefix}-t{i}" aria-controls="{prefix}-p{i}" aria-selected="{"true" if i==1 else "false"}"><span class="dot">{dot(i, k)}</span><span>{t}</span></button>' for i, (k, t, d) in enumerate(items, 1))
+    head = lambda i, k: f'<div class="step-ico">{drawn(k)}</div>' if k else ''
+    num = lambda i, k: f'<div class="step-num">Step {i} of {len(items)}</div>' if k else ''
+    panels = "".join(f'''<div class="step-panel{" has-ico" if k else ""}" role="tabpanel" id="{prefix}-p{i}" aria-labelledby="{prefix}-t{i}" tabindex="0">
+{head(i, k)}<div>{num(i, k)}<h3>{t}</h3><p>{d}</p></div>
 <div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
 </div>
-''' for i, (t, d) in enumerate(items, 1))
-    return f'<div class="stepper fade">\n<div class="stepper-nav" role="tablist" aria-label="{label}" style="--steps:{len(items)}">{tabs}</div>\n{panels}</div>\n'
+''' for i, (k, t, d) in enumerate(items, 1))
+    cls = "stepper fade" + (" with-icons" if icons else "")
+    auto = ' data-autoplay="4000"' if autoplay else ''
+    return f'<div class="{cls}"{auto}>\n<div class="stepper-nav" role="tablist" aria-label="{label}" style="--steps:{len(items)}">{tabs}</div>\n{panels}</div>\n'
 
 def tabset(prefix, label, groups):
     tabs = "".join(f'<button class="tab" type="button" role="tab" id="{prefix}-t{i}" aria-controls="{prefix}-p{i}" aria-selected="{"true" if i==1 else "false"}">{name}</button>' for i, (name, _) in enumerate(groups, 1))
@@ -80,13 +95,13 @@ ABOUT = '''<section class="page-hero"><div class="container">
 <h2>From measurement to value</h2>
 </div>
 ''' + stepper("hw", "How BEST works", [
- ("Align", "Each product gets its own BEST method, built on ISO 14067 and the TfS PCF Guideline, so boundaries, allocation and data rules are fixed in advance."),
- ("Calculate", "Producers calculate the cradle-to-gate footprint per tonne with the BEST calculator and a shared factor library, plus a data quality rating."),
- ("Benchmark", "The result is placed against peers in a BEST, BETTER or GOOD band derived from industry evidence."),
- ("Communicate", "Verified results can carry the BEST label — a clear, comparable signal to customers and supply chains."),
- ("Improve", "The gap to the next tier shows where energy, feedstock, utilities or process changes matter most."),
- ("Create value", "Better performance becomes visible to buyers, investors and governments — opening market advantages and performance-linked incentives."),
-]) + '''</div></section>
+ ("method", "Align", "Each product gets its own BEST method, built on ISO 14067 and the TfS PCF Guideline, so boundaries, allocation and data rules are fixed in advance."),
+ ("calc", "Calculate", "Producers calculate the cradle-to-gate footprint per tonne with the BEST calculator and a shared factor library, plus a data quality rating."),
+ ("tiers", "Benchmark", "The result is placed against peers in a BEST, BETTER or GOOD band derived from industry evidence."),
+ ("label", "Communicate", "Verified results can carry the BEST label — a clear, comparable signal to customers and supply chains."),
+ ("trend", "Improve", "The gap to the next tier shows where energy, feedstock, utilities or process changes matter most."),
+ ("coins", "Create value", "Better performance becomes visible to buyers, investors and governments — opening market advantages and performance-linked incentives."),
+], autoplay=True) + '''</div></section>
 
 <section class="section band"><div class="container">
 <div class="section-head fade">

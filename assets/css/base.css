@@ -253,10 +253,34 @@ a.card:hover { border-color: var(--accent); }
 .step-ctrl button:disabled { opacity: .35; cursor: default; }
 .js .step-panel.fade-swap { animation: swap .3s ease; }
 @keyframes swap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+/* Stepper with icons: progress line fills up to the open step, icon draws itself in */
+.stepper-nav::after { content: ""; position: absolute; left: 6%; top: 24px; height: 2px; width: calc(88% * var(--progress, 0)); background: var(--accent); transition: width .5s ease; }
+.step-tab .dot { position: relative; z-index: 1; }
+.with-icons .step-tab .dot svg { width: 22px; height: 22px; transition: transform .25s ease; }
+.with-icons .step-tab:hover .dot svg { transform: scale(1.12); }
+.with-icons .step-tab[aria-selected="true"] .dot { transform: scale(1.1); box-shadow: 0 0 0 6px var(--accent-tint); }
+.with-icons .step-tab .dot { transition: background-color .2s, border-color .2s, color .2s, transform .25s ease, box-shadow .25s ease; }
+.step-panel.has-ico { grid-template-columns: auto 1fr auto; }
+.step-ico { width: 88px; height: 88px; border-radius: 22px; background: var(--accent-tint); color: var(--accent-strong); display: flex; align-items: center; justify-content: center; }
+.step-ico svg { width: 48px; height: 48px; }
+.step-ico svg * { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.js .step-panel.fade-swap .step-ico svg * { animation: ico-draw .9s ease .1s backwards; }
+.step-num { font: 600 13px/1 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 8px; }
+.stepper[data-autoplay] .stepper-nav { padding-bottom: 6px; }
+.step-timer { height: 3px; border-radius: 2px; background: var(--line); margin-top: var(--space-4); overflow: hidden; }
+.step-timer i { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.step-timer.run i { animation: step-timer var(--dur, 4s) linear forwards; }
+@keyframes step-timer { to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .js .step-panel.fade-swap .step-ico svg * { animation: none; }
+  .stepper-nav::after { transition: none; }
+}
 @media (max-width: 760px) {
   .stepper-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-4); }
-  .stepper-nav::before { display: none; }
-  .step-panel { grid-template-columns: 1fr; padding: var(--space-6); }
+  .stepper-nav::before, .stepper-nav::after { display: none; }
+  .step-panel, .step-panel.has-ico { grid-template-columns: 1fr; padding: var(--space-6); }
+  .step-ico { width: 64px; height: 64px; border-radius: 16px; }
+  .step-ico svg { width: 36px; height: 36px; }
 }
 
 .tab-list { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-pill); }
