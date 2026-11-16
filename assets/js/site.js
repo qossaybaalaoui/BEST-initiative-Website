@@ -108,14 +108,68 @@
     sectionNav.outerHTML = '<nav class="section-nav" aria-label="' + esc(current.label) + '"><div class="container">' + title + '<ul>' + tabs + '</ul></div></nav>';
   }
 
-  /* ---------- Reveal tiles: click to open / close ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll('.reveal-btn'), function (btn) {
+  /* ---------- Reveal tiles and "read more": click to open / close ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.reveal-btn, .more-btn'), function (btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
     btn.addEventListener('click', function () {
       var open = btn.getAttribute('aria-expanded') !== 'true';
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.closest('.reveal-tile').classList.toggle('is-open', open);
+      if (panel) panel.classList.toggle('is-open', open);
+      var tile = btn.closest('.reveal-tile');
+      if (tile) tile.classList.toggle('is-open', open);
+      if (btn.classList.contains('more-btn')) btn.firstChild.nodeValue = open ? 'Show less' : 'Read more';
     });
   });
+
+  /* ---------- Steppers and tabs (role="tablist") ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('[role="tablist"]'), function (list) {
+    var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    function select(i, focus) {
+      tabs.forEach(function (t, j) {
+        var on = i === j;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        t.classList.toggle('done', j < i);
+        panels[j].hidden = !on;
+        if (on) { panels[j].classList.remove('fade-swap'); void panels[j].offsetWidth; panels[j].classList.add('fade-swap'); }
+      });
+      if (focus) tabs[i].focus();
+      var root = list.parentNode;
+      Array.prototype.forEach.call(root.querySelectorAll('[data-step]'), function (b) {
+        var dir = b.getAttribute('data-step');
+        b.disabled = dir === 'prev' ? i === 0 : i === tabs.length - 1;
+      });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, n = tabs.length;
+        if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); select((i + 1) % n, true); }
+        if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); select((i - 1 + n) % n, true); }
+        if (k === 'Home') { e.preventDefault(); select(0, true); }
+        if (k === 'End') { e.preventDefault(); select(n - 1, true); }
+      });
+    });
+    Array.prototype.forEach.call(list.parentNode.querySelectorAll('[data-step]'), function (b) {
+      b.addEventListener('click', function () {
+        var cur = tabs.map(function (t) { return t.getAttribute('aria-selected') === 'true'; }).indexOf(true);
+        select(b.getAttribute('data-step') === 'prev' ? Math.max(0, cur - 1) : Math.min(tabs.length - 1, cur + 1));
+      });
+    });
+    select(0);
+  });
+
+  /* ---------- Gentle fade-in on scroll ---------- */
+  var fades = document.querySelectorAll('.fade');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    Array.prototype.forEach.call(fades, function (el) { io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(fades, function (el) { el.classList.add('in-view'); });
+  }
 
   /* ---------- Footer ---------- */
   var footer = document.getElementById('site-footer');
