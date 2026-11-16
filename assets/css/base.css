@@ -579,3 +579,32 @@ a.card:hover { border-color: var(--accent); }
 .ec-table td { padding: 8px; border-bottom: 1px solid var(--line); }
 .ec-table .num { text-align: right; font-variant-numeric: tabular-nums; }
 .ec-wrap { overflow-x: auto; }
+
+/* ---------- Home: "How it works" flow (reuses the animated .ico icons) ---------- */
+.hw-flow { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
+.hw-card { position: relative; transition: border-color .3s, transform .3s, box-shadow .3s; }
+.hw-top { display: flex; align-items: flex-start; justify-content: space-between; }
+.hw-num { font: 700 14px/1 var(--font-display); color: var(--ink-muted); letter-spacing: .04em; transition: color .3s; }
+.hw-card p { font-size: 15px; }
+.hw-card .tier { font-size: 11px; }
+/* arrow between steps */
+.hw-card:not(:last-child)::after { content: ""; position: absolute; top: 58px; right: -22px; width: 14px; height: 14px; border-top: 2.5px solid var(--line); border-right: 2.5px solid var(--line); transform: rotate(45deg); transition: border-color .3s, transform .3s; }
+/* spotlight: one step at a time lights up and replays its icon */
+.hw-card.is-on, .hw-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 28px rgba(var(--dark-rgb, 11,43,46), .10); }
+.hw-card.is-on .ico, .hw-card:hover .ico { background: #D3EEDD; }
+.hw-card.is-on .hw-num, .hw-card:hover .hw-num { color: var(--accent-text); }
+.hw-card.is-on::after { border-color: var(--accent); transform: translateX(4px) rotate(45deg); }
+.hw-card.is-on .draw { animation: ico-draw .9s ease; }
+.hw-card.is-on .bar { animation: ico-bar .8s cubic-bezier(.2,.8,.2,1) both; }
+.hw-card.is-on .bar.b2 { animation-delay: .1s; } .hw-card.is-on .bar.b3 { animation-delay: .2s; }
+.hw-card.is-on .pulse { animation: ico-pulse 1s ease; }
+.hw-card.is-on .slide { animation: ico-slide .8s ease both; }
+.hw-card.is-on .slide:nth-of-type(2) { animation-delay: .08s; }
+@media (max-width: 1000px) {
+  .hw-flow { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .hw-card::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hw-card, .hw-card::after { transition: none; }
+  .hw-card.is-on .draw, .hw-card.is-on .bar, .hw-card.is-on .pulse, .hw-card.is-on .slide { animation: none; }
+}

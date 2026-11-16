@@ -325,6 +325,28 @@
     });
   });
 
+  /* ---------- Spotlight (data-spotlight="ms"): light up one step after another while the
+     list is on screen; pauses while the visitor points at or focuses a step. ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-spotlight]'), function (flow) {
+    var items = flow.children, ms = parseInt(flow.getAttribute('data-spotlight'), 10) || 2800;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still || !items.length || !('IntersectionObserver' in window)) return;
+    var i = -1, handle = null, paused = false, seen = false;
+    function show(n) {
+      Array.prototype.forEach.call(items, function (el, j) { el.classList.toggle('is-on', j === n); });
+    }
+    function step() { if (!paused) { i = (i + 1) % items.length; show(i); } }
+    function start() { if (seen && !handle) { step(); handle = setInterval(step, ms); } }
+    function stop() { clearInterval(handle); handle = null; }
+    flow.addEventListener('mouseenter', function () { paused = true; show(-1); });
+    flow.addEventListener('mouseleave', function () { paused = false; });
+    flow.addEventListener('focusin', function () { paused = true; show(-1); });
+    flow.addEventListener('focusout', function () { paused = false; });
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen = e.isIntersecting; if (seen) { setTimeout(start, 900); } else { stop(); } });
+    }, { threshold: 0.5 }).observe(flow);
+  });
+
   /* ---------- Gentle fade-in on scroll ---------- */
   var fades = document.querySelectorAll('.fade, .sub-card');
   if ('IntersectionObserver' in window) {

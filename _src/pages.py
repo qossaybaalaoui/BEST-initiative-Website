@@ -50,6 +50,26 @@ def stub(eyebrow, h1, lead, note="This page is being prepared."):
 </div></section>
 '''
 
+# ---------------- Home: "How it works" flow with animated icons ----------------
+HW_ICONS = {
+ "align": '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><circle class="ln draw" pathLength="100" cx="24" cy="24" r="16"/><circle class="ln acc draw" pathLength="100" cx="24" cy="24" r="8"/><circle class="dot pulse" cx="24" cy="24" r="3.2"/><line class="ln" x1="24" y1="3" x2="24" y2="9"/><line class="ln" x1="24" y1="39" x2="24" y2="45"/><line class="ln" x1="3" y1="24" x2="9" y2="24"/><line class="ln" x1="39" y1="24" x2="45" y2="24"/></svg>',
+ "calculate": '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><rect class="ln draw" pathLength="100" x="11" y="5" width="26" height="38" rx="4"/><line class="ln acc slide" x1="17" y1="13" x2="31" y2="13"/><circle class="dot" cx="18" cy="23" r="2"/><circle class="dot" cx="24" cy="23" r="2"/><circle class="dot" cx="30" cy="23" r="2"/><circle class="dot" cx="18" cy="30" r="2"/><circle class="dot" cx="24" cy="30" r="2"/><circle class="dot" cx="30" cy="30" r="2"/><line class="ln slide" x1="18" y1="37" x2="30" y2="37"/></svg>',
+ "benchmark": '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><line class="ln" x1="7" y1="40" x2="41" y2="40"/><rect class="bar b1" x="11" y="26" width="7" height="13" rx="1.5"/><rect class="bar b2" x="20.5" y="18" width="7" height="21" rx="1.5"/><rect class="bar b3" x="30" y="9" width="7" height="30" rx="1.5"/></svg>',
+ "communicate": '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><polyline class="ln" points="17,30 14,43 20,40 24,44"/><polyline class="ln" points="31,30 34,43 28,40 24,44"/><circle class="ln draw" pathLength="100" cx="24" cy="20" r="13"/><polyline class="ln acc draw" pathLength="100" points="18,20 22.5,24.5 30,16"/></svg>',
+ "improve": '<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><line class="ln" x1="7" y1="41" x2="41" y2="41"/><polyline class="ln draw" pathLength="100" points="7,34 17,24 24,29 38,14"/><polyline class="ln acc draw" pathLength="100" points="29,13 39,13 39,23"/><circle class="dot pulse" cx="7" cy="34" r="3.2"/></svg>',
+}
+HW_STEPS = [
+ ("align", "Align", "Product-specific PCF methods aligned with ISO 14067 and the TfS guideline."),
+ ("calculate", "Calculate", "Consistent, comparable product carbon intensity in t CO₂e per tonne."),
+ ("benchmark", "Benchmark", 'Compare with peers against <span class="tier tier-good">GOOD</span> <span class="tier tier-better">BETTER</span> <span class="tier tier-best">BEST</span> bands.'),
+ ("communicate", "Communicate", "Verified results and the BEST carbon label send a clear market signal."),
+ ("improve", "Improve", "Turn benchmark results into actionable improvement on energy, feedstock and process."),
+]
+HOW_IT_WORKS = ('<section class="section" style="padding-top:0"><div class="container">\n<h2>How it works</h2>\n'
+  '<ol class="hw-flow" data-spotlight="2800">\n' + "".join(
+  f'<li class="sub-card hw-card" style="--d:{i*0.1:.1f}s"><div class="hw-top"><span class="ico">{HW_ICONS[k]}</span><span class="hw-num">{i+1:02d}</span></div><h3>{t}</h3><p>{d}</p></li>\n'
+  for i, (k, t, d) in enumerate(HW_STEPS)) + '</ol>\n</div></section>\n')
+
 # ---------------- Home ----------------
 home = '''<section class="hero" aria-labelledby="hero-title">
 <img class="hero-img" src="{root}assets/img/hero.jpg" alt="" onerror="this.remove()">
@@ -80,17 +100,7 @@ home = '''<section class="hero" aria-labelledby="hero-title">
 </a>
 </div>
 </div></section>
-<section class="section" style="padding-top:0"><div class="container">
-<h2>How it works</h2>
-<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
-<div class="card"><h3>Align</h3><p>Product-specific PCF methods aligned with ISO 14067 and the TfS guideline.</p></div>
-<div class="card"><h3>Calculate</h3><p>Consistent, comparable product carbon intensity in t CO₂e per tonne.</p></div>
-<div class="card"><h3>Benchmark</h3><p>Compare with peers against <span class="tier tier-good">GOOD</span> <span class="tier tier-better">BETTER</span> <span class="tier tier-best">BEST</span> bands.</p></div>
-<div class="card"><h3>Communicate</h3><p>Verified results and the BEST carbon label send a clear market signal.</p></div>
-<div class="card"><h3>Improve</h3><p>Turn benchmark results into actionable improvement on energy, feedstock and process.</p></div>
-</div>
-</div></section>
-'''
+''' + HOW_IT_WORKS + ''''''
 page("index.html", "BEST — Benchmarking &amp; Evaluation for Sustainability and Transparency",
      "BEST turns product carbon footprint data into comparable performance, market signals and improvement.", "home", "home", home)
 
