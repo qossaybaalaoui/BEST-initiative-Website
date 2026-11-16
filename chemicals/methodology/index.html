@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.classList.add("js")</script>
 <title>Methodology — BEST Chemicals</title>
-<meta name="description" content="How BEST Chemicals methods quantify cradle-to-gate product carbon footprints, and how they are reviewed.">
+<meta name="description" content="How BEST Chemicals methods calculate cradle-to-gate product carbon footprints: steps, emission sources, key rules and data quality.">
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="../../assets/css/tokens.css?v=dbe28555">
-<link rel="stylesheet" href="../../assets/css/base.css?v=c620502b">
+<link rel="stylesheet" href="../../assets/css/base.css?v=95f88af8">
 </head>
 <body data-root="../../" data-section="chemicals" data-page="chem-methodology" data-theme="chemicals">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -22,10 +22,143 @@
 <div class="container">
 <div class="hero-sector"><img src="../../assets/img/best-mark-reversed.svg" alt="" width="44" height="44"><strong>BEST</strong> Chemicals</div>
 <h1 id="page-title">Methodology</h1>
-<p class="lead">How BEST Chemicals methods quantify cradle-to-gate product carbon footprints, and how they are reviewed.</p>
+<p class="lead">How a BEST Chemicals footprint is calculated — the steps, what is counted, the key rules and how data quality is rated.</p>
 </div>
 </section>
-<section class="section"><div class="container"><div class="placeholder">This page is being prepared.</div></div></section>
+<section class="section" style="padding-bottom:0"><div class="container">
+<dl class="facts"><div><dt>Scope</dt><dd>Cradle-to-gate</dd></div><div><dt>Declared unit</dt><dd>1 t of product at the factory gate</dd></div><div><dt>Impact</dt><dd>Climate change · IPCC AR6 GWP-100</dd></div><div><dt>Offsets</dt><dd>Never deducted</dd></div></dl>
+<div class="standards fade" aria-label="Standards the methods build on"><span>ISO 14040 / 14044</span><span>ISO 14067</span><span>TfS PCF Guideline</span><span>GHG Protocol Scope 2</span></div>
+</div></section>
+
+<section class="section"><div class="container">
+<div class="section-head fade">
+<div class="eyebrow">Step by step</div>
+<h2>How a BEST footprint is calculated</h2>
+</div>
+<div class="stepper fade">
+<div class="stepper-nav" role="tablist" aria-label="How a BEST footprint is calculated" style="--steps:6"><button class="step-tab" type="button" role="tab" id="calc-t1" aria-controls="calc-p1" aria-selected="true"><span class="dot">01</span><span>Set the scope</span></button><button class="step-tab" type="button" role="tab" id="calc-t2" aria-controls="calc-p2" aria-selected="false"><span class="dot">02</span><span>Collect data</span></button><button class="step-tab" type="button" role="tab" id="calc-t3" aria-controls="calc-p3" aria-selected="false"><span class="dot">03</span><span>Check the balances</span></button><button class="step-tab" type="button" role="tab" id="calc-t4" aria-controls="calc-p4" aria-selected="false"><span class="dot">04</span><span>Share with co-products</span></button><button class="step-tab" type="button" role="tab" id="calc-t5" aria-controls="calc-p5" aria-selected="false"><span class="dot">05</span><span>Calculate by source</span></button><button class="step-tab" type="button" role="tab" id="calc-t6" aria-controls="calc-p6" aria-selected="false"><span class="dot">06</span><span>Rate and report</span></button></div>
+<div class="step-panel" role="tabpanel" id="calc-p1" aria-labelledby="calc-t1" tabindex="0">
+<div><h3>Set the scope</h3><p>Define the product, the production route and the plant boundary — from raw-material extraction to the factory gate.</p></div>
+<div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
+</div>
+<div class="step-panel" role="tabpanel" id="calc-p2" aria-labelledby="calc-t2" tabindex="0">
+<div><h3>Collect data</h3><p>Gather one continuous year of plant data: feedstocks, energy, utilities, emissions and wastes. Measured data first, then supplier and database data.</p></div>
+<div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
+</div>
+<div class="step-panel" role="tabpanel" id="calc-p3" aria-labelledby="calc-t3" tabindex="0">
+<div><h3>Check the balances</h3><p>Mass, carbon and energy must add up. Any unexplained carbon is counted conservatively as an emission.</p></div>
+<div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
+</div>
+<div class="step-panel" role="tabpanel" id="calc-p4" aria-labelledby="calc-t4" tabindex="0">
+<div><h3>Share with co-products</h3><p>Where the plant also sells co-products, shared emissions are split between them by a fixed rule.</p></div>
+<div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
+</div>
+<div class="step-panel" role="tabpanel" id="calc-p5" aria-labelledby="calc-t5" tabindex="0">
+<div><h3>Calculate by source</h3><p>Each emission source — feedstock, fuels, process, electricity, steam, utilities, transport, waste — is calculated with its own equation.</p></div>
+<div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
+</div>
+<div class="step-panel" role="tabpanel" id="calc-p6" aria-labelledby="calc-t6" tabindex="0">
+<div><h3>Rate and report</h3><p>A data quality rating, an uncertainty class and the BEST tier complete the result, ready for verification.</p></div>
+<div class="step-ctrl"><button type="button" data-step="prev" aria-label="Previous step">←</button><button type="button" data-step="next" aria-label="Next step">→</button></div>
+</div>
+</div>
+</div></section>
+
+<section class="section band"><div class="container">
+<div class="section-head fade">
+<div class="eyebrow">What is counted</div>
+<h2>Every emission source, nothing hidden</h2>
+<p>Select a source to see how it is treated.</p>
+</div>
+<div class="reveal-grid fade">
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-1"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/></svg></span><span class="reveal-title">Feedstocks &amp; materials</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-1"><div><p>Each input carries its cradle-to-gate footprint — ideally the supplier's verified product footprint. Catalysts are always included.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-2"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4 0 7-2.7 7-6.5 0-3.5-2.5-5.5-4-8-1 2-2 3-3.5 3.5C12 8 11 5 9 2c-.5 3.5-4 6.5-4 11.5C5 19.3 8 22 12 22z"/></svg></span><span class="reveal-title">Fuel combustion</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-2"><div><p>Every metered fuel is counted once, from its energy content and carbon, plus the emissions of producing that fuel.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-3"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6 4V10l6 4V6h6v15z"/><path d="M7 17h2M12 17h2M17 17h2"/></svg></span><span class="reveal-title">Process emissions</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-3"><div><p>Flares, vents, leaks and non-CO₂ gases, measured or engineered from plant data. For ethylene, furnace decoking too.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-4"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><span class="reveal-title">Electricity</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-4"><div><p>Full life-cycle factor. The location-based result is mandatory; a market-based result is added where contracts are used.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-5"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4M16 3c-1 1.5 1 2.5 0 4"/><rect x="4" y="10" width="16" height="11" rx="2"/></svg></span><span class="reveal-title">Steam &amp; heat</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-5"><div><p>Steam made on site is counted through its fuel; purchased steam gets the supplier's factor or a documented default.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-6"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></span><span class="reveal-title">Water &amp; industrial gases</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-6"><div><p>Only what crosses the site fence carries a factor; on-site utilities are counted through their own energy.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-7"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><span class="reveal-title">Transport</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-7"><div><p>Inbound and waste transport legs not already included in a material's footprint.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-8"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></span><span class="reveal-title">Waste &amp; wastewater</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-8"><div><p>Each waste stream follows its real treatment route — incineration, landfill or wastewater treatment.</p></div></div>
+</div>
+<div class="reveal-tile">
+<button class="reveal-btn" type="button" aria-expanded="false" aria-controls="src-9"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></span><span class="reveal-title">Carbon capture</span><span class="reveal-toggle" aria-hidden="true"></span></button>
+<div class="reveal-panel" id="src-9"><div><p>Deducted only for CO₂ permanently stored or verifiably used, with full evidence. The result before capture is always shown.</p></div></div>
+</div>
+</div>
+</div></section>
+
+<section class="section"><div class="container">
+<div class="section-head fade">
+<div class="eyebrow">Key rules</div>
+<h2>The rules that make results comparable</h2>
+</div>
+<div class="tabs fade">
+<div class="tab-list" role="tablist" aria-label="Key rules"><button class="tab" type="button" role="tab" id="rule-t1" aria-controls="rule-p1" aria-selected="true">Co-products</button><button class="tab" type="button" role="tab" id="rule-t2" aria-controls="rule-p2" aria-selected="false">Cut-off</button><button class="tab" type="button" role="tab" id="rule-t3" aria-controls="rule-p3" aria-selected="false">Electricity</button><button class="tab" type="button" role="tab" id="rule-t4" aria-controls="rule-p4" aria-selected="false">Biogenic carbon</button><button class="tab" type="button" role="tab" id="rule-t5" aria-controls="rule-p5" aria-selected="false">Carbon capture</button></div>
+<div class="rule-panel" role="tabpanel" id="rule-p1" aria-labelledby="rule-t1" tabindex="0"><ol><li>First avoid allocation: split the process until each part has one product.</li><li>Otherwise share emissions by mass.</li><li>Use economic value only when there is no physical basis — or when co-product values differ by more than 5:1.</li></ol><p class="why">Only co-products that are actually sold share emissions; everything else is classified as waste or emission first.</p></div>
+<div class="rule-panel" role="tabpanel" id="rule-p2" aria-labelledby="rule-t2" tabindex="0"><ul><li>A flow below 1% of the footprint may be left out — judged by its emissions, not its mass.</li><li>Included materials and energy must still cover at least 97% of the total.</li><li>Catalysts and precious metals are never cut off.</li></ul><p class="why">Every exclusion is listed with its justification, never silently dropped.</p></div>
+<div class="rule-panel" role="tabpanel" id="rule-p3" aria-labelledby="rule-t3" tabindex="0"><ul><li>Location-based result: mandatory, using the delivered grid factor including losses.</li><li>Market-based result: reported separately when renewable contracts or certificates are used.</li></ul><p class="why">So buyers can compare plants on the same basis, and still see the effect of clean-power purchases.</p></div>
+<div class="rule-panel" role="tabpanel" id="rule-p4" aria-labelledby="rule-t4" tabindex="0"><ul><li>Bio-based inputs are tracked stream by stream, with certificates.</li><li>Biogenic CO₂ and the biogenic carbon stored in the product are reported separately.</li></ul><p class="why">The headline footprint is fossil; biogenic carbon is disclosed, never netted as a credit.</p></div>
+<div class="rule-panel" role="tabpanel" id="rule-p5" aria-labelledby="rule-t5" tabindex="0"><ul><li>Captured CO₂ is deducted only when permanently stored or verifiably used.</li><li>Energy used to capture, compress and transport it stays in the footprint.</li></ul><p class="why">The footprint before capture is always reported alongside, so the deduction is visible.</p></div>
+</div>
+</div></section>
+
+<section class="section band"><div class="container">
+<div class="section-head fade">
+<div class="eyebrow">Data quality rating</div>
+<h2>How good is the data behind a result?</h2>
+<p>Each input gets a score from 1 (best) to 5. The overall rating is weighted by each input's share of emissions and sets the uncertainty class. Select a score.</p>
+</div>
+<div class="fade">
+<div class="dqr-scale" role="tablist" aria-label="Data quality scores"><button class="dqr-btn dqr-1" type="button" role="tab" id="dq-t1" aria-controls="dq-p1" aria-selected="true"><span class="n">1</span><span class="t">Measured · verified</span></button><button class="dqr-btn dqr-2" type="button" role="tab" id="dq-t2" aria-controls="dq-p2" aria-selected="false"><span class="n">2</span><span class="t">Measured</span></button><button class="dqr-btn dqr-3" type="button" role="tab" id="dq-t3" aria-controls="dq-p3" aria-selected="false"><span class="n">3</span><span class="t">Supplier PCF</span></button><button class="dqr-btn dqr-4" type="button" role="tab" id="dq-t4" aria-controls="dq-p4" aria-selected="false"><span class="n">4</span><span class="t">Database</span></button><button class="dqr-btn dqr-5" type="button" role="tab" id="dq-t5" aria-controls="dq-p5" aria-selected="false"><span class="n">5</span><span class="t">Default</span></button></div>
+<div class="dqr-bands" aria-hidden="true"><span>Low uncertainty · up to 1.5</span><span>Medium · up to 3.0</span><span>High · above 3.0</span></div>
+<div class="dqr-panel" role="tabpanel" id="dq-p1" aria-labelledby="dq-t1" tabindex="0"><h3>Score 1 — Measured, site-specific and third-party verified</h3><p>Direct measurement at the site for the reporting period, verified by an independent body.</p></div>
+<div class="dqr-panel" role="tabpanel" id="dq-p2" aria-labelledby="dq-t2" tabindex="0"><h3>Score 2 — Measured, site-specific, not externally verified</h3><p>Direct measurement or mass balance at the site, reviewed internally.</p></div>
+<div class="dqr-panel" role="tabpanel" id="dq-p3" aria-labelledby="dq-t3" tabindex="0"><h3>Score 3 — Supplier-declared footprint</h3><p>A supplier's product footprint, compliant with a recognised standard and no more than three years old.</p></div>
+<div class="dqr-panel" role="tabpanel" id="dq-p4" aria-labelledby="dq-t4" tabindex="0"><h3>Score 4 — Industry-average or database data</h3><p>Secondary data from an LCA database or an industry average.</p></div>
+<div class="dqr-panel" role="tabpanel" id="dq-p5" aria-labelledby="dq-t5" tabindex="0"><h3>Score 5 — Generic defaults or proxies</h3><p>IPCC default factors, spend-based proxies or estimates — used only when nothing better exists.</p></div>
+</div>
+</div></section>
+
+<section class="section"><div class="container">
+<div class="section-head fade">
+<div class="eyebrow">Documents</div>
+<h2>Method documents</h2>
+</div>
+<div class="doc-list fade">
+<div class="doc"><span class="ico"><svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><rect class="ln" x="11" y="6" width="26" height="36" rx="4"/><line class="ln acc" x1="17" y1="16" x2="31" y2="16"/><line class="ln" x1="17" y1="23" x2="31" y2="23"/><line class="ln" x1="17" y1="30" x2="26" y2="30"/></svg></span><div><h3>BEST Ethylene method</h3><p>July 2026 · For further review</p><a class="btn btn-secondary" href="../../contact/">Request a copy</a></div></div>
+<div class="doc"><span class="ico"><svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><rect class="ln" x="11" y="6" width="26" height="36" rx="4"/><line class="ln acc" x1="17" y1="16" x2="31" y2="16"/><line class="ln" x1="17" y1="23" x2="31" y2="23"/><line class="ln" x1="17" y1="30" x2="26" y2="30"/></svg></span><div><h3>BEST Polyethylene method</h3><p>Draft for comments</p><a class="btn btn-secondary" href="../../contact/">Request a copy or comment</a></div></div>
+</div>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="container">
+<div class="cta-band fade">
+<div><h2>Help shape the methods</h2><p>Drafts are open for review by producers, researchers, verifiers and other stakeholders.</p></div>
+<div class="hero-actions"><a class="btn btn-light" href="../../contact/">Comment on a draft</a><a class="btn btn-ghost" href="../../chemicals/pcf-calculator/">Try the calculator</a></div>
+</div>
+</div></section>
 </main>
 <div id="site-footer"></div>
 <script src="../../assets/js/site.js?v=0a069501"></script>
