@@ -15,3 +15,4 @@ Run it from the repository root after editing any script or `assets/css`/`assets
 - `products.py`    BEST Chemicals → Products
 - `methodology.py` BEST Chemicals → Methodology
 - `label.py`       BEST Chemicals → Label & Verification
+- `resources.py`   Resources and Contact (set CONTACT_EMAIL in assets/js/site.js)

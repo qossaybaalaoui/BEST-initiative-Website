@@ -185,6 +185,63 @@
     });
   });
 
+  /* ---------- Live filter (glossary) ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (input) {
+    var list = document.getElementById(input.getAttribute('data-filter'));
+    var empty = document.getElementById(input.getAttribute('data-filter') + '-empty');
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase(), shown = 0;
+      Array.prototype.forEach.call(list.children, function (item) {
+        var hit = !q || item.textContent.toLowerCase().indexOf(q) !== -1;
+        item.hidden = !hit; if (hit) shown++;
+      });
+      if (empty) empty.hidden = shown !== 0;
+    });
+  });
+
+  /* ---------- Contact form ----------
+     Set CONTACT_EMAIL to the initiative's address. Until then the form
+     explains that sending is not configured yet. */
+  var CONTACT_EMAIL = '';
+  Array.prototype.forEach.call(document.querySelectorAll('form[data-contact]'), function (form) {
+    var topic = form.querySelector('#f-topic');
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('topic') && topic.querySelector('option[value="' + params.get('topic') + '"]')) topic.value = params.get('topic');
+    var topicButtons = document.querySelectorAll('.topic-btn');
+    function syncButtons() {
+      Array.prototype.forEach.call(topicButtons, function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-topic') === topic.value ? 'true' : 'false'); });
+    }
+    Array.prototype.forEach.call(topicButtons, function (b) {
+      b.addEventListener('click', function () { topic.value = b.getAttribute('data-topic'); syncButtons(); form.querySelector('#f-name').focus(); });
+    });
+    topic.addEventListener('change', syncButtons);
+    syncButtons();
+    Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (el) {
+      el.addEventListener('input', function () { el.closest('.field, .check').classList.remove('invalid'); });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ok = true, first = null;
+      Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (el) {
+        var bad = el.type === 'checkbox' ? !el.checked : !el.value.trim() || (el.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim()));
+        el.closest('.field, .check').classList.toggle('invalid', bad);
+        if (bad) { ok = false; if (!first) first = el; }
+      });
+      if (!ok) { first.focus(); return; }
+      var msg = form.querySelector('.form-msg');
+      if (!CONTACT_EMAIL) {
+        msg.textContent = 'Thank you. Online sending is being set up — please try again soon.';
+        msg.classList.add('show'); return;
+      }
+      var f = function (id) { return form.querySelector(id).value.trim(); };
+      var subject = '[BEST] ' + topic.options[topic.selectedIndex].text + ' — ' + f('#f-org');
+      var bodyText = f('#f-message') + '\n\n' + f('#f-name') + '\n' + f('#f-org') + ' (' + form.querySelector('#f-role').value + ')\n' + f('#f-email');
+      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyText);
+      msg.textContent = 'Your email app should open with the message ready to send.';
+      msg.classList.add('show');
+    });
+  });
+
   /* ---------- Gentle fade-in on scroll ---------- */
   var fades = document.querySelectorAll('.fade, .sub-card');
   if ('IntersectionObserver' in window) {

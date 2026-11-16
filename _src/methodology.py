@@ -93,15 +93,15 @@ METHOD = '''<section class="section" style="padding-bottom:0"><div class="contai
 <h2>Method documents</h2>
 </div>
 <div class="doc-list fade">
-<div class="doc"><span class="ico">''' + ICON["doc"] + '''</span><div><h3>BEST Ethylene method</h3><p>July 2026 · For further review</p><a class="btn btn-secondary" href="{root}contact/">Request a copy</a></div></div>
-<div class="doc"><span class="ico">''' + ICON["doc"] + '''</span><div><h3>BEST Polyethylene method</h3><p>Draft for comments</p><a class="btn btn-secondary" href="{root}contact/">Request a copy or comment</a></div></div>
+<div class="doc"><span class="ico">''' + ICON["doc"] + '''</span><div><h3>BEST Ethylene method</h3><p>July 2026 · For further review</p><a class="btn btn-secondary" href="{root}contact/?topic=document">Request a copy</a></div></div>
+<div class="doc"><span class="ico">''' + ICON["doc"] + '''</span><div><h3>BEST Polyethylene method</h3><p>Draft for comments</p><a class="btn btn-secondary" href="{root}contact/?topic=review">Request a copy or comment</a></div></div>
 </div>
 </div></section>
 
 <section class="section" style="padding-top:0"><div class="container">
 <div class="cta-band fade">
 <div><h2>Help shape the methods</h2><p>Drafts are open for review by producers, researchers, verifiers and other stakeholders.</p></div>
-<div class="hero-actions"><a class="btn btn-light" href="{root}contact/">Comment on a draft</a><a class="btn btn-ghost" href="{root}chemicals/pcf-calculator/">Try the calculator</a></div>
+<div class="hero-actions"><a class="btn btn-light" href="{root}contact/?topic=review">Comment on a draft</a><a class="btn btn-ghost" href="{root}chemicals/pcf-calculator/">Try the calculator</a></div>
 </div>
 </div></section>
 '''

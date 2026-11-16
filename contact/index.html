@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.classList.add("js")</script>
 <title>Contact — BEST</title>
-<meta name="description" content="Get in touch or join the BEST initiative.">
+<meta name="description" content="Contact the BEST initiative: questions, joining, method review, document requests, verification and calculator support.">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
 <link rel="stylesheet" href="../assets/css/tokens.css?v=dbe28555">
-<link rel="stylesheet" href="../assets/css/base.css?v=1a982eab">
+<link rel="stylesheet" href="../assets/css/base.css?v=1dc7d2bc">
 </head>
 <body data-root="../" data-section="contact" data-page="contact">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -19,14 +19,32 @@
 <main id="main">
 <section class="page-hero"><div class="container">
 <div class="eyebrow">Contact</div>
-<h1>Contact</h1>
-<p class="lead">Get in touch, review a method or join the initiative.</p>
+<h1>Get in touch</h1>
+<p class="lead">Questions, collaboration, a method review or a document request — choose a topic and send us a message.</p>
 </div></section>
-<section><div class="container">
-<div class="placeholder">This page is being prepared.</div>
+<section style="padding-bottom:40px"><div class="container contact-grid">
+<div class="fade">
+<p class="sub-h">What is it about?</p>
+<div class="topics"><button class="topic-btn" type="button" data-topic="general" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14"/><circle cx="12" cy="17" r=".6"/></svg></span><span><strong>General question</strong><span>About BEST and how it works</span></span></button><button class="topic-btn" type="button" data-topic="join" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg></span><span><strong>Join the initiative</strong><span>Producers, associations, partners</span></span></button><button class="topic-btn" type="button" data-topic="review" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13 7 4 4"/></svg></span><span><strong>Review a method</strong><span>Comment on a draft</span></span></button><button class="topic-btn" type="button" data-topic="document" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7"/></svg></span><span><strong>Request a document</strong><span>Methods and guides</span></span></button><button class="topic-btn" type="button" data-topic="verification" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><span><strong>Verification</strong><span>Verifiers and certification bodies</span></span></button><button class="topic-btn" type="button" data-topic="calculator" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h0M8 16h2M12 16h2M16 16h0"/></svg></span><span><strong>Calculator support</strong><span>Questions on the PCF calculators</span></span></button><button class="topic-btn" type="button" data-topic="datacenters" aria-pressed="false"><span class="reveal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="7" rx="1.5"/><rect x="4" y="13" width="16" height="7" rx="1.5"/><path d="M8 7.5h.01M8 16.5h.01"/></svg></span><span><strong>BEST Data Centers</strong><span>Interest in the next sector</span></span></button></div>
+</div>
+<form class="form fade" data-contact novalidate>
+<div class="field"><label for="f-topic">Topic</label><select id="f-topic" name="topic"><option value="general">General question</option><option value="join">Join the initiative</option><option value="review">Review a method</option><option value="document">Request a document</option><option value="verification">Verification</option><option value="calculator">Calculator support</option><option value="datacenters">BEST Data Centers</option></select></div>
+<div class="two">
+<div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err">Enter your name.</span></div>
+<div class="field"><label for="f-org">Organisation</label><input id="f-org" name="organisation" autocomplete="organization" required><span class="err">Enter your organisation.</span></div>
+</div>
+<div class="two">
+<div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err">Enter a valid email address.</span></div>
+<div class="field"><label for="f-role">You are</label><select id="f-role" name="role" required><option value="">Select…</option><option>Chemical producer</option><option>Buyer or brand</option><option>Researcher or academic</option><option>Certification body or verifier</option><option>Government or public agency</option><option>Industry association</option><option>Investor or financer</option><option>Other</option></select><span class="err">Select one option.</span></div>
+</div>
+<div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" required></textarea><span class="err">Write a short message.</span></div>
+<label class="check"><input type="checkbox" required><span>I agree that BEST may use these details to reply to my message.</span><span class="err" style="display:none"></span></label>
+<button class="btn btn-primary" type="submit">Send message</button>
+<p class="form-msg" role="status"></p>
+</form>
 </div></section>
 </main>
 <div id="site-footer"></div>
-<script src="../assets/js/site.js?v=076f4f63"></script>
+<script src="../assets/js/site.js?v=daca345d"></script>
 </body>
 </html>

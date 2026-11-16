@@ -198,7 +198,6 @@ for slug, pid, t, lead in [
          stub("Tools · BEST Chemicals", t, lead, "The online calculator is in development."), theme="chemicals", subnav=True)
 
 # ---------------- Resources, Contact ----------------
-page("resources/index.html", "Resources — BEST", "Downloads, glossary, FAQ and news.", "resources", "resources",
-     stub("Resources", "Resources", "Method documents, user guides, glossary, FAQ and news."))
-page("contact/index.html", "Contact — BEST", "Get in touch or join the BEST initiative.", "contact", "contact",
-     stub("Contact", "Contact", "Get in touch, review a method or join the initiative."))
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources.py")).read())
+page("resources/index.html", "Resources — BEST", "BEST method documents and guides, a glossary of key terms, frequently asked questions and news.", "resources", "resources", RESOURCES)
+page("contact/index.html", "Contact — BEST", "Contact the BEST initiative: questions, joining, method review, document requests, verification and calculator support.", "contact", "contact", CONTACT)
