@@ -7,7 +7,7 @@
 (function () {
   var NAV = [
     { id: 'about', label: 'About', href: 'about/' },
-    { id: 'chemicals', label: 'BEST Chemicals', href: 'chemicals/', theme: 'chem', mark: 'best-mark.svg', sector: 'Chemicals', children: [
+    { id: 'chemicals', label: 'BEST Chemicals', href: 'chemicals/', direct: true, theme: 'chem', mark: 'best-mark.svg', sector: 'Chemicals', children: [
       { id: 'chem-overview', label: 'Overview', href: 'chemicals/' },
       { id: 'chem-products', label: 'Products', href: 'chemicals/products/' },
       { id: 'chem-methodology', label: 'Methodology', href: 'chemicals/methodology/' },
@@ -37,8 +37,11 @@
   /* ---------- Header ---------- */
   var items = NAV.map(function (n, i) {
     var cls = n.id === section ? ' class="is-current"' : '';
-    if (!n.children) {
-      return '<li' + cls + '><a href="' + root + n.href + '"' + (n.id === page || (n.id === section && !page) ? ' aria-current="page"' : '') + '>' + esc(n.label) + '</a></li>';
+    /* Sections marked "direct" open their overview page in one click;
+       their sub-pages are reached from the section tab bar. */
+    if (!n.children || n.direct) {
+      var here = n.id === section && (!n.children || page === n.children[0].id || n.id === page);
+      return '<li' + cls + '><a href="' + root + n.href + '"' + (here ? ' aria-current="page"' : '') + '>' + esc(n.label) + '</a></li>';
     }
     var subs = n.children.map(function (c) {
       return '<li><a href="' + root + c.href + '"' + cur(c.id) + '>' + esc(c.label) + '</a></li>';
