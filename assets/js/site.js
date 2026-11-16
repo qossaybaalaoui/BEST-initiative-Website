@@ -12,7 +12,8 @@
       { id: 'chem-products', label: 'Products', href: 'chemicals/products/' },
       { id: 'chem-methodology', label: 'Methodology', href: 'chemicals/methodology/' },
       { id: 'chem-benchmarks', label: 'Benchmarks', href: 'chemicals/benchmarks/' },
-      { id: 'chem-label', label: 'Label & Verification', href: 'chemicals/label-verification/' }
+      { id: 'chem-label', label: 'Label & Verification', href: 'chemicals/label-verification/' },
+      { id: 'chem-calculator', label: 'PCF Calculator', href: 'chemicals/pcf-calculator/' }
     ] },
     { id: 'datacenters', label: 'BEST Data Centers', href: 'data-centers/', theme: 'dc', mark: 'best-mark-datacenters.svg', sector: 'Data Centers' },
     { id: 'tools', label: 'Tools', href: 'tools/', children: [
@@ -119,7 +120,7 @@
       '<span class="brand-word" style="color:#fff">BEST</span></div>' +
       '<p>Benchmarking &amp; Evaluation for Sustainability and Transparency — product carbon performance you can measure, compare and trust.</p></div>' +
       '<div><h2>Sectors</h2><ul>' + link('chemicals/', 'BEST Chemicals') + link('data-centers/', 'BEST Data Centers') + '</ul></div>' +
-      '<div><h2>BEST Chemicals</h2><ul>' + link('chemicals/products/', 'Products') + link('chemicals/methodology/', 'Methodology') + link('chemicals/benchmarks/', 'Benchmarks') + link('chemicals/label-verification/', 'Label &amp; Verification') + '</ul></div>' +
+      '<div><h2>BEST Chemicals</h2><ul>' + link('chemicals/products/', 'Products') + link('chemicals/methodology/', 'Methodology') + link('chemicals/benchmarks/', 'Benchmarks') + link('chemicals/label-verification/', 'Label &amp; Verification') + link('chemicals/pcf-calculator/', 'PCF Calculator') + '</ul></div>' +
       '<div><h2>Initiative</h2><ul>' + link('about/', 'About') + link('tools/', 'Tools') + link('resources/', 'Resources') + link('contact/', 'Contact') + '</ul></div>' +
       '</div>' +
       '<div class="footer-legal">© ' + year + ' BEST Initiative. Methods and benchmarks shown as draft are subject to review.</div>' +
