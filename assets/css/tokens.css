@@ -32,3 +32,36 @@
 
   --container: 1200px;
 }
+
+/* ---------------------------------------------------------------
+   Themes. The umbrella site uses the default; each sector section
+   sets <body data-theme="..."> and only these accent tokens change.
+   Tier colours (BEST / BETTER / GOOD) never change between themes.
+   --------------------------------------------------------------- */
+:root {
+  --accent: var(--teal);            /* accent marks, active underline */
+  --accent-strong: var(--teal);     /* primary buttons (white text) */
+  --accent-text: var(--leaf-text);  /* links and small accent text */
+  --accent-tint: #E4F0EC;           /* light bands, subnav background */
+  --accent-on-dark: var(--mint);    /* accent text on dark heroes/footer */
+  --dark: var(--ink);               /* hero and footer background */
+  --dark-rgb: 11, 43, 46;           /* same as --dark, for the hero scrim */
+}
+[data-theme="chemicals"] {
+  --accent: #1E9E68;
+  --accent-strong: #167A50;
+  --accent-text: #167A50;
+  --accent-tint: #E3F4EA;
+  --accent-on-dark: #9FDDBF;
+  --dark: #0E3A2C;
+  --dark-rgb: 14, 58, 44;
+}
+[data-theme="datacenters"] {
+  --accent: #2A64C8;
+  --accent-strong: #1F4FA3;
+  --accent-text: #1F4FA3;
+  --accent-tint: #E3ECFA;
+  --accent-on-dark: #A9C6F5;
+  --dark: #0B1E3A;
+  --dark-rgb: 11, 30, 58;
+}
