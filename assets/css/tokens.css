@@ -1,0 +1,34 @@
+/* BEST design tokens — mirrors the BEST design system (tokens.json). Change values here only. */
+:root {
+  /* Colour */
+  --ink: #0B2B2E;          /* primary text, headings, dark sections */
+  --ink-muted: #4A5A5C;    /* secondary text on surface/paper */
+  --teal: #0F5C55;         /* actions: buttons, active nav */
+  --leaf: #1E9E68;         /* BEST tier, Chemicals accent — marks/large text only */
+  --leaf-text: #167A50;    /* small green text and links */
+  --mint: #9FDDBF;         /* BETTER tier; accent on ink */
+  --amber: #D9962B;        /* GOOD tier marker — never text on white */
+  --amber-tint: #F3D9A4;   /* GOOD tier chip fill */
+  --blue: #2A64C8;         /* Data Centers sector */
+  --surface: #FFFFFF;
+  --paper: #F5F7F4;
+  --line: #DDE4E1;
+
+  /* Type */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: Inter, system-ui, sans-serif;
+
+  /* Spacing */
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-10: 40px;
+  --space-20: 80px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+
+  --container: 1200px;
+}
