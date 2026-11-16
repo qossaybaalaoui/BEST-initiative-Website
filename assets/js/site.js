@@ -164,7 +164,7 @@
   });
 
   /* ---------- Gentle fade-in on scroll ---------- */
-  var fades = document.querySelectorAll('.fade');
+  var fades = document.querySelectorAll('.fade, .sub-card');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); } });
