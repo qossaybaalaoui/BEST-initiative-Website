@@ -185,6 +185,58 @@
     });
   });
 
+  /* ---------- Benchmarks explorer ----------
+     Thresholds come from the JSON block #bench-data on the page. */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-bench]'), function (box) {
+    var data = JSON.parse(document.getElementById('bench-data').textContent);
+    var tabs = box.querySelectorAll('[data-product]');
+    var current = null;
+    var $ = function (sel) { return box.querySelector(sel); };
+    function pct(v) { return Math.max(0, Math.min(100, (v - current.axis[0]) / (current.axis[1] - current.axis[0]) * 100)); }
+    function fmt(v) { return v.toFixed(3).replace(/0$/, ''); }
+    function tierOf(v) {
+      var t = current.thresholds;
+      if (v <= t[0]) return ['best', 'BEST', 'At or below the BEST threshold.'];
+      if (v <= t[1]) return ['better', 'BETTER', 'Above BEST, at or below the BETTER threshold.'];
+      if (v <= t[2]) return ['good', 'GOOD', 'Above BETTER, at or below the GOOD threshold.'];
+      return ['above', 'ABOVE RANGE', 'Above the GOOD threshold.'];
+    }
+    function show(key) {
+      current = data[key];
+      Array.prototype.forEach.call(tabs, function (t) { t.setAttribute('aria-selected', t.getAttribute('data-product') === key ? 'true' : 'false'); });
+      $('.bench-name').textContent = current.name;
+      $('.bench-scope').textContent = current.scope;
+      var badge = $('.bench-badge');
+      badge.className = 'bench-badge ' + (current.status === 'Approved' ? 'approved' : 'draft');
+      badge.textContent = current.status === 'Approved' ? 'Approved · ' + current.date : 'Draft — not yet approved';
+      var t = current.thresholds, p = [pct(t[0]), pct(t[1]), pct(t[2])];
+      var z = box.querySelectorAll('.bench-bar span');
+      z[0].style.width = p[0] + '%'; z[1].style.width = (p[1] - p[0]) + '%'; z[2].style.width = (p[2] - p[1]) + '%'; z[3].style.width = (100 - p[2]) + '%';
+      var ticks = box.querySelectorAll('.bench-tick');
+      ticks.forEach(function (tk, i) { tk.style.left = p[i] + '%'; tk.textContent = fmt(t[i]); });
+      $('.ax-min').textContent = current.axis[0].toFixed(1); $('.ax-max').textContent = current.axis[1].toFixed(1) + ' t CO₂e/t';
+      var leg = box.querySelectorAll('.bench-legend b');
+      leg[0].textContent = '≤ ' + fmt(t[0]); leg[1].textContent = '≤ ' + fmt(t[1]); leg[2].textContent = '≤ ' + fmt(t[2]); leg[3].textContent = '> ' + fmt(t[2]);
+      $('.bench-refs').innerHTML = current.refs;
+      check();
+    }
+    var input = $('#bench-value'), out = $('.bench-result'), marker = $('.bench-marker');
+    function check() {
+      var raw = input.value.trim().replace(',', '.');
+      var field = input.closest('.field');
+      if (!raw) { marker.hidden = true; out.textContent = 'Enter a footprint to see where it falls.'; field.classList.remove('invalid'); return; }
+      var v = parseFloat(raw);
+      if (isNaN(v) || v < 0 || v > 50) { field.classList.add('invalid'); marker.hidden = true; out.textContent = ''; return; }
+      field.classList.remove('invalid');
+      var r = tierOf(v);
+      marker.hidden = false; marker.style.left = pct(v) + '%';
+      out.innerHTML = '<span class="tier tier-' + r[0] + '">' + r[1] + '</span>' + r[2] + (current.status === 'Approved' ? '' : ' Draft thresholds — indicative only.');
+    }
+    input.addEventListener('input', check);
+    Array.prototype.forEach.call(tabs, function (t) { t.addEventListener('click', function () { show(t.getAttribute('data-product')); }); });
+    show(tabs[0].getAttribute('data-product'));
+  });
+
   /* ---------- Live filter (glossary) ---------- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (input) {
     var list = document.getElementById(input.getAttribute('data-filter'));

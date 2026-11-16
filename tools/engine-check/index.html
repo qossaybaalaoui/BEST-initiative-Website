@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
+<title>Calculator engine check — BEST Tools</title>
+<meta name="description" content="Verification page: the browser engine recalculates the BEST calculator examples and compares every formula cell with Excel.">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/tokens.css?v=dbe28555">
+<link rel="stylesheet" href="../../assets/css/base.css?v=f389cbf6">
+</head>
+<body data-root="../../" data-section="tools" data-page="tools-engine" data-theme="chemicals">
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="site-header"></div>
+<div id="section-nav"></div>
+<main id="main">
+<section class="page-hero"><div class="container">
+<div class="eyebrow">Tools · BEST Chemicals · Engine check</div>
+<h1>Calculator engine check</h1>
+<p class="lead">The online calculators run the BEST Excel workbooks in your browser. This page recalculates a worked example and compares every formula cell with the values Excel saved.</p>
+</div></section>
+<section style="padding-bottom:40px"><div class="container">
+<div class="tab-list" role="group" aria-label="Choose a worked example" style="margin-bottom:24px">
+<button class="tab" type="button" data-model="pe" aria-selected="true">Polyethylene · HDPE gas phase</button><button class="tab" type="button" data-model="eth" aria-selected="false">Ethylene · ethane cracker</button>
+</div>
+<div class="ec-grid">
+<div class="ec-panel">
+<div><p class="sub-h" style="margin-bottom:8px">Headline PCF (fossil, location-based)</p><div class="ec-big" id="ec-pcf">—</div><div class="muted" id="ec-unit"></div></div>
+<div class="muted" id="ec-status-line" style="font-size:14px"></div>
+<button class="btn btn-primary" type="button" id="ec-run" disabled>Run check</button>
+<div class="ec-result" id="ec-result"><div class="ec-kv"><span>Formula cells matching Excel</span><b id="ec-match">—</b><span>Recalculation time</span><b id="ec-time">—</b></div><p id="ec-result-text" style="margin:8px 0 0;font-size:14px"></p></div>
+<p class="muted" id="ec-status" role="status" style="font-size:14px;margin:0"></p>
+<div class="field"><label for="ec-input" id="ec-input-label">Fresh feed (t/yr)</label><input id="ec-input" type="number" min="0" step="any"><span class="err">Enter a positive number.</span></div>
+<p class="muted" style="font-size:13px;margin:0">Change the feed to see the footprint recalculate instantly. “Run check” restores the example.</p>
+</div>
+<div class="ec-panel ec-wrap">
+<table class="ec-table"><thead><tr><th>ID</th><th>Emission term</th><th class="num">Engine (t CO₂e/yr)</th><th class="num">Excel</th></tr></thead><tbody id="ec-terms"></tbody></table>
+</div>
+</div>
+</div></section>
+<script src="../../assets/calc/engine.js"></script>
+<script src="../../assets/calc/engine-check.js"></script>
+</main>
+<div id="site-footer"></div>
+<script src="../../assets/js/site.js?v=5415b39e"></script>
+</body>
+</html>

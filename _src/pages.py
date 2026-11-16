@@ -197,6 +197,37 @@ for slug, pid, t, lead in [
     page(f"tools/{slug}/index.html", f"{t} — BEST Tools", lead, "tools", pid,
          stub("Tools · BEST Chemicals", t, lead, "The online calculator is in development."), theme="chemicals", subnav=True)
 
+# ---------------- Engine check (developer verification page, not in the menu) ----------------
+ENGINE_CHECK = '''<section class="page-hero"><div class="container">
+<div class="eyebrow">Tools · BEST Chemicals · Engine check</div>
+<h1>Calculator engine check</h1>
+<p class="lead">The online calculators run the BEST Excel workbooks in your browser. This page recalculates a worked example and compares every formula cell with the values Excel saved.</p>
+</div></section>
+<section style="padding-bottom:40px"><div class="container">
+<div class="tab-list" role="group" aria-label="Choose a worked example" style="margin-bottom:24px">
+<button class="tab" type="button" data-model="pe" aria-selected="true">Polyethylene · HDPE gas phase</button><button class="tab" type="button" data-model="eth" aria-selected="false">Ethylene · ethane cracker</button>
+</div>
+<div class="ec-grid">
+<div class="ec-panel">
+<div><p class="sub-h" style="margin-bottom:8px">Headline PCF (fossil, location-based)</p><div class="ec-big" id="ec-pcf">—</div><div class="muted" id="ec-unit"></div></div>
+<div class="muted" id="ec-status-line" style="font-size:14px"></div>
+<button class="btn btn-primary" type="button" id="ec-run" disabled>Run check</button>
+<div class="ec-result" id="ec-result"><div class="ec-kv"><span>Formula cells matching Excel</span><b id="ec-match">—</b><span>Recalculation time</span><b id="ec-time">—</b></div><p id="ec-result-text" style="margin:8px 0 0;font-size:14px"></p></div>
+<p class="muted" id="ec-status" role="status" style="font-size:14px;margin:0"></p>
+<div class="field"><label for="ec-input" id="ec-input-label">Fresh feed (t/yr)</label><input id="ec-input" type="number" min="0" step="any"><span class="err">Enter a positive number.</span></div>
+<p class="muted" style="font-size:13px;margin:0">Change the feed to see the footprint recalculate instantly. “Run check” restores the example.</p>
+</div>
+<div class="ec-panel ec-wrap">
+<table class="ec-table"><thead><tr><th>ID</th><th>Emission term</th><th class="num">Engine (t CO₂e/yr)</th><th class="num">Excel</th></tr></thead><tbody id="ec-terms"></tbody></table>
+</div>
+</div>
+</div></section>
+<script src="{root}assets/calc/engine.js"></script>
+<script src="{root}assets/calc/engine-check.js"></script>
+'''
+page("tools/engine-check/index.html", "Calculator engine check — BEST Tools", "Verification page: the browser engine recalculates the BEST calculator examples and compares every formula cell with Excel.",
+     "tools", "tools-engine", ENGINE_CHECK, theme="chemicals", subnav=True)
+
 # ---------------- Resources, Contact ----------------
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources.py")).read())
 page("resources/index.html", "Resources — BEST", "BEST method documents and guides, a glossary of key terms, frequently asked questions and news.", "resources", "resources", RESOURCES)
