@@ -233,6 +233,13 @@
         var ast = this.asts[key] || (this.asts[key] = parse(raw.slice(1)));
         val = toScalar(this, evalNode(this, ast, { sheet: sheet, row: r, col: c }), { sheet: sheet, row: r, col: c });
         if (val === EMPTY) val = 0;
+        // Excel: when the last operation of a formula is + or − and the result is only rounding
+        // noise next to its operands (e.g. 1e7 − 1e7 = 2.8e−9), the cell shows exactly 0.
+        if (typeof val === "number" && val !== 0 && Math.abs(val) < 1e-6 && ast.k === "bin" && (ast.op === "+" || ast.op === "-")) {
+          var ctx0 = { sheet: sheet, row: r, col: c };
+          var pa = toScalar(this, evalNode(this, ast.a, ctx0), ctx0), pb = toScalar(this, evalNode(this, ast.b, ctx0), ctx0);
+          if (typeof pa === "number" && typeof pb === "number" && Math.abs(val) <= Math.max(Math.abs(pa), Math.abs(pb)) * 3.6e-15) val = 0;
+        }
       } catch (e) {
         if (e && e.message && e.message.indexOf("Unknown function") === 0) throw e;
         val = ERR["#VALUE!"];
