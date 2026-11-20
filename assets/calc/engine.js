@@ -295,9 +295,9 @@
         if (isErr(a)) return a; if (isErr(b)) return b;
         if (!(a instanceof Ref) || !(b instanceof Ref)) return ERR["#REF!"];
         return new Ref(a.sheet, Math.min(a.r1, b.r1), Math.min(a.c1, b.c1), Math.max(a.r2, b.r2), Math.max(a.c2, b.c2));
-      case "un": return map1(wb, evalNode(wb, n.a, ctx), function (x) { var v = toNum(x); return isErr(v) ? v : -v; });
-      case "post": return map1(wb, evalNode(wb, n.a, ctx), function (x) { var v = toNum(x); return isErr(v) ? v : v / 100; });
-      case "bin": return binop(wb, n.op, evalNode(wb, n.a, ctx), evalNode(wb, n.b, ctx));
+      case "un": return map1(wb, sv(wb, n.a, ctx), function (x) { var v = toNum(x); return isErr(v) ? v : -v; });
+      case "post": return map1(wb, sv(wb, n.a, ctx), function (x) { var v = toNum(x); return isErr(v) ? v : v / 100; });
+      case "bin": return binop(wb, n.op, sv(wb, n.a, ctx), sv(wb, n.b, ctx));
       case "fn":
         var fn = FUNCS[n.f];
         if (!fn) throw new Error("Unknown function " + n.f);
@@ -322,12 +322,20 @@
       if (v.isCell()) return wb.cell(v.sheet, v.r1, v.c1);
       if (v.cols() === 1 && ctx.row >= v.r1 && ctx.row <= v.r2) return wb.cell(v.sheet, ctx.row, v.c1);
       if (v.rows() === 1 && ctx.col >= v.c1 && ctx.col <= v.c2) return wb.cell(v.sheet, v.r1, ctx.col);
-      return wb.cell(v.sheet, v.r1, v.c1);
+      return ERR["#VALUE!"];   // Excel: a range with no implicit intersection with the formula's row or column
     }
     if (v instanceof Arr) return v.rows() ? v.data[0][0] : EMPTY;
     return v;
   }
   function scalarArg(wb, node, ctx) { return toScalar(wb, evalNode(wb, node, ctx), ctx); }
+  // A value used where Excel expects one value: outside an array context (SUMPRODUCT or an
+  // array formula) a multi-cell range is read by implicit intersection, as Excel does.
+  // Context for a parameter Excel evaluates as an array (SUMPRODUCT, INDEX's array, MATCH's lookup array…)
+  function actx(ctx) { return ctx && ctx.arr ? ctx : { sheet: ctx.sheet, row: ctx.row, col: ctx.col, arr: true }; }
+  function sv(wb, node, ctx) {
+    var v = evalNode(wb, node, ctx);
+    return (ctx && !ctx.arr && v instanceof Ref && !v.isCell()) ? toScalar(wb, v, ctx) : v;
+  }
 
   // Apply f elementwise over a (possibly array) value
   function map1(wb, v, f) {
@@ -563,10 +571,10 @@
 
   var FUNCS = {
     IF: function (wb, a, ctx) {
-      var c = evalNode(wb, a[0], ctx);
+      var c = sv(wb, a[0], ctx);
       c = deref(wb, c);
       if (c instanceof Arr) {
-        var t = a.length > 1 ? deref(wb, evalNode(wb, a[1], ctx)) : true, f = a.length > 2 ? deref(wb, evalNode(wb, a[2], ctx)) : false;
+        var t = a.length > 1 ? deref(wb, sv(wb, a[1], ctx)) : true, f = a.length > 2 ? deref(wb, sv(wb, a[2], ctx)) : false;
         return map2(wb, map2(wb, c, t, function (cc, tt) { return [cc, tt]; }), f, function (pair, ff) {
           var b = toBool(pair[0]); if (isErr(b)) return b; return b ? (pair[1] === EMPTY ? 0 : pair[1]) : (ff === EMPTY ? 0 : ff);
         });
@@ -577,13 +585,15 @@
       return a.length > 2 ? (a[2].k === "missing" ? 0 : evalNode(wb, a[2], ctx)) : false;
     },
     IFERROR: function (wb, a, ctx) {
-      var v = deref(wb, evalNode(wb, a[0], ctx));
+      var v0 = evalNode(wb, a[0], ctx);
+      // Outside an array context Excel reads a range here by implicit intersection (#VALUE! if none)
+      var v = (v0 instanceof Ref && !v0.isCell() && !(ctx && ctx.arr)) ? toScalar(wb, v0, ctx) : deref(wb, v0);
       if (v instanceof Arr) { var alt = deref(wb, evalNode(wb, a[1], ctx)); return map2(wb, v, alt, function (x, y) { return isErr(x) ? y : x; }); }
       return isErr(v) ? evalNode(wb, a[1], ctx) : v;
     },
     AND: function (wb, a, ctx) { return logical(wb, a, ctx, true); },
     OR: function (wb, a, ctx) { return logical(wb, a, ctx, false); },
-    NOT: function (wb, a, ctx) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { var b = toBool(x); return isErr(b) ? b : !b; }); },
+    NOT: function (wb, a, ctx) { return map1(wb, sv(wb, a[0], ctx), function (x) { var b = toBool(x); return isErr(b) ? b : !b; }); },
     TRUE: function () { return true; },
     FALSE: function () { return false; },
     N: function (wb, a, ctx) {
@@ -591,11 +601,11 @@
       if (v instanceof Ref) v = wb.cell(v.sheet, v.r1, v.c1);
       return map1(wb, v, function (x) { return isErr(x) ? x : typeof x === "number" ? x : typeof x === "boolean" ? (x ? 1 : 0) : 0; });
     },
-    ISNUMBER: function (wb, a, ctx) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { return typeof x === "number"; }); },
-    ISERROR: function (wb, a, ctx) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { return isErr(x); }); },
+    ISNUMBER: function (wb, a, ctx) { return map1(wb, sv(wb, a[0], ctx), function (x) { return typeof x === "number"; }); },
+    ISERROR: function (wb, a, ctx) { return map1(wb, sv(wb, a[0], ctx), function (x) { return isErr(x); }); },
     ISFORMULA: function (wb, a, ctx) { var r = evalNode(wb, a[0], ctx); if (!(r instanceof Ref)) return ERR["#VALUE!"]; return wb.isFormula(cellKey(r.sheet, r.r1, r.c1)); },
     INDEX: function (wb, a, ctx) {
-      var src = evalNode(wb, a[0], ctx);
+      var src = evalNode(wb, a[0], actx(ctx));
       var r = a.length > 1 && a[1].k !== "missing" ? toNum(scalarArg(wb, a[1], ctx)) : 0;
       var c = a.length > 2 && a[2].k !== "missing" ? toNum(scalarArg(wb, a[2], ctx)) : 0;
       if (isErr(r)) return r; if (isErr(c)) return c;
@@ -623,7 +633,7 @@
     MATCH: function (wb, a, ctx) {
       var look = scalarArg(wb, a[0], ctx);
       if (isErr(look)) return look;
-      var arr = flat(deref(wb, evalNode(wb, a[1], ctx)));
+      var arr = flat(deref(wb, evalNode(wb, a[1], actx(ctx))));
       var type = a.length > 2 && a[2].k !== "missing" ? toNum(scalarArg(wb, a[2], ctx)) : 1;
       if (isErr(type)) return type;
       if (look === EMPTY) look = 0;
@@ -677,7 +687,7 @@
     SMALL: function (wb, a, ctx) { return kth(wb, a, ctx, true); },
     LARGE: function (wb, a, ctx) { return kth(wb, a, ctx, false); },
     SUMPRODUCT: function (wb, a, ctx) {
-      var arrays = a.map(function (n) { return deref(wb, evalNode(wb, n, ctx)); });
+      var arrays = a.map(function (n) { return deref(wb, evalNode(wb, n, actx(ctx))); });
       for (var i = 0; i < arrays.length; i++) if (isErr(arrays[i])) return arrays[i];
       var first = arrays[0] instanceof Arr ? arrays[0] : new Arr([[arrays[0]]]);
       var R = first.rows(), C = first.cols(), sum = 0;
@@ -730,7 +740,7 @@
     },
     LEFT: function (wb, a, ctx) {
       var nn = a.length > 1 ? deref(wb, evalNode(wb, a[1], ctx)) : 1;
-      return map2(wb, evalNode(wb, a[0], ctx), nn, function (x, k) { var s = toStr(x); if (isErr(s)) return s; k = toNum(k); if (isErr(k)) return k; return s.slice(0, Math.max(0, Math.floor(k))); });
+      return map2(wb, sv(wb, a[0], ctx), nn, function (x, k) { var s = toStr(x); if (isErr(s)) return s; k = toNum(k); if (isErr(k)) return k; return s.slice(0, Math.max(0, Math.floor(k))); });
     },
     MID: function (wb, a, ctx) {
       var s = toStr(scalarArg(wb, a[0], ctx)), st = toNum(scalarArg(wb, a[1], ctx)), ln = toNum(scalarArg(wb, a[2], ctx));
@@ -738,14 +748,14 @@
       if (st < 1 || ln < 0) return ERR["#VALUE!"];
       return s.substr(Math.floor(st) - 1, Math.floor(ln));
     },
-    LEN: function (wb, a, ctx) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { var s = toStr(x); return isErr(s) ? s : s.length; }); },
-    LOWER: function (wb, a, ctx) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { var s = toStr(x); return isErr(s) ? s : s.toLowerCase(); }); },
-    VALUE: function (wb, a, ctx) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { if (typeof x === "number") return x; if (x === EMPTY) return 0; return toNum(String(x)); }); },
+    LEN: function (wb, a, ctx) { return map1(wb, sv(wb, a[0], ctx), function (x) { var s = toStr(x); return isErr(s) ? s : s.length; }); },
+    LOWER: function (wb, a, ctx) { return map1(wb, sv(wb, a[0], ctx), function (x) { var s = toStr(x); return isErr(s) ? s : s.toLowerCase(); }); },
+    VALUE: function (wb, a, ctx) { return map1(wb, sv(wb, a[0], ctx), function (x) { if (typeof x === "number") return x; if (x === EMPTY) return 0; return toNum(String(x)); }); },
     SEARCH: function (wb, a, ctx) { return findText(wb, a, ctx, false); },
     FIND: function (wb, a, ctx) { return findText(wb, a, ctx, true); },
     TEXT: function (wb, a, ctx) {
       var fmt = toStr(scalarArg(wb, a[1], ctx));
-      return map1(wb, evalNode(wb, a[0], ctx), function (x) {
+      return map1(wb, sv(wb, a[0], ctx), function (x) {
         if (isErr(x)) return x;
         if (typeof x === "string") { var n = toNum(x); if (isErr(n)) return x; x = n; }
         if (x === EMPTY) x = 0;
@@ -774,7 +784,7 @@
     return seen ? acc : ERR["#VALUE!"];
   }
   function kth(wb, a, ctx, small) {
-    var list = flat(deref(wb, evalNode(wb, a[0], ctx)));
+    var list = flat(deref(wb, evalNode(wb, a[0], actx(ctx))));
     var k = toNum(scalarArg(wb, a[1], ctx)); if (isErr(k)) return k;
     var nums = [];
     for (var i = 0; i < list.length; i++) { if (isErr(list[i])) return list[i]; if (typeof list[i] === "number") nums.push(list[i]); }
@@ -783,12 +793,12 @@
     nums.sort(function (x, y) { return x - y; });
     return small ? nums[k - 1] : nums[nums.length - k];
   }
-  function math1(wb, a, ctx, f) { return map1(wb, evalNode(wb, a[0], ctx), function (x) { var n = toNum(x); return isErr(n) ? n : f(n); }); }
+  function math1(wb, a, ctx, f) { return map1(wb, sv(wb, a[0], ctx), function (x) { var n = toNum(x); return isErr(n) ? n : f(n); }); }
   function findText(wb, a, ctx, caseSensitive) {
     var start = a.length > 2 ? toNum(scalarArg(wb, a[2], ctx)) : 1;
     if (isErr(start)) return start;
-    var needleV = deref(wb, evalNode(wb, a[0], ctx));
-    return map2(wb, needleV, evalNode(wb, a[1], ctx), function (nd, hs) {
+    var needleV = deref(wb, sv(wb, a[0], ctx));
+    return map2(wb, needleV, sv(wb, a[1], ctx), function (nd, hs) {
       var needle = toStr(nd), hay = toStr(hs);
       if (isErr(needle)) return needle; if (isErr(hay)) return hay;
       if (start < 1 || start > hay.length + 1) return ERR["#VALUE!"];
