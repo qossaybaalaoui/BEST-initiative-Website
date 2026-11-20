@@ -226,7 +226,6 @@ ENGINE_CHECK = '''<section class="page-hero"><div class="container">
 <p class="muted" id="ec-status" role="status" style="font-size:14px;margin:0"></p>
 <div class="field"><label for="ec-input" id="ec-input-label">Fresh feed (t/yr)</label><input id="ec-input" type="number" min="0" step="any"><span class="err">Enter a positive number.</span></div>
 <p class="muted" style="font-size:13px;margin:0">Change the feed to see the footprint recalculate instantly. “Run check” restores the example.</p>
-<p style="font-size:14px;margin:0"><a href="{root}tools/live-check/">Live check: compare your own Excel file →</a></p>
 </div>
 <div class="ec-panel ec-wrap">
 <table class="ec-table"><thead><tr><th>ID</th><th>Emission term</th><th class="num">Engine (t CO₂e/yr)</th><th class="num">Excel</th></tr></thead><tbody id="ec-terms"></tbody></table>
@@ -236,55 +235,6 @@ ENGINE_CHECK = '''<section class="page-hero"><div class="container">
 <script src="{root}assets/calc/engine.js"></script>
 <script src="{root}assets/calc/engine-check.js"></script>
 '''
-# ---------------- Live check against Excel (verification page, not in the menu) ----------------
-LIVE_CHECK = """<section class="page-hero"><div class="container">
-<div class="eyebrow">Tools · BEST Chemicals · Live check</div>
-<h1>Live check against Excel</h1>
-<p class="lead">Change anything in a BEST calculator workbook in Excel, save it, and drop it here. The engine recalculates the file from its own formulas and inputs and compares every formula cell with the result Excel saved.</p>
-</div></section>
-<section style="padding-bottom:40px"><div class="container">
-<ol class="lc-steps">
-<li><b>In Excel</b>, open the PE or ethylene calculator and change any inputs.</li>
-<li><b>Save</b> the workbook (.xlsx). Excel stores its results in the file.</li>
-<li><b>Drop the file</b> below. It is read in this browser and never uploaded.</li>
-</ol>
-<label class="lc-drop" id="lc-drop" for="lc-file">
-<input type="file" id="lc-file" accept=".xlsx" class="visually-hidden">
-<span class="lc-drop-title">Drop the saved workbook here</span>
-<span class="muted">or click to choose a file · .xlsx</span>
-</label>
-<p class="lc-status" id="lc-status" role="status"></p>
-<div id="lc-out" hidden style="scroll-margin-top:96px">
-<div class="lc-head"><div><p class="sub-h" style="margin:0">File</p><b id="lc-file-name"></b><div class="muted" id="lc-calc"></div><div class="muted" id="lc-saved-by"></div></div></div>
-<p class="lc-warn" id="lc-warn" hidden></p>
-<div class="ec-grid lc-grid">
-<div class="ec-panel">
-<div class="ec-result" id="lc-result"><div class="ec-kv"><span>Formula cells matching Excel</span><b id="lc-match">—</b><span>Engine recalculation</span><b id="lc-time">—</b></div><p id="lc-verdict" style="margin:8px 0 0;font-size:14px"></p></div>
-<div id="lc-pcf">
-<table class="ec-table lc-pcf"><thead><tr><th></th><th class="num">Excel</th><th class="num">Engine</th></tr></thead>
-<tbody><tr><td>Headline PCF <span class="muted" id="lc-unit"></span></td><td class="num lc-big" id="lc-pcf-x">—</td><td class="num lc-big" id="lc-pcf-e">—</td></tr>
-<tr><td>Calculation status</td><td id="lc-st-x" style="font-size:13px">—</td><td id="lc-st-e" style="font-size:13px">—</td></tr></tbody></table>
-</div>
-<table class="ec-table"><thead><tr><th>Sheet</th><th class="num">Formulas</th><th class="num">Same</th><th class="num">Different</th></tr></thead><tbody id="lc-sheets"></tbody></table>
-</div>
-<div class="ec-panel ec-wrap">
-<table class="ec-table"><thead><tr><th>ID</th><th>Emission term</th><th class="num">Excel (t CO₂e/yr)</th><th class="num">Engine</th><th></th></tr></thead><tbody id="lc-terms"></tbody></table>
-</div>
-</div>
-<div id="lc-diff-wrap" hidden style="margin-top:24px">
-<h2 style="font-size:22px">Cells that differ</h2>
-<div class="ec-panel ec-wrap"><table class="ec-table"><thead><tr><th>Cell</th><th>Excel saved</th><th>Engine</th></tr></thead><tbody id="lc-diffs"></tbody></table></div>
-</div>
-</div>
-<p class="muted" style="font-size:13px;margin-top:32px">Use desktop Excel and save after it has calculated. A file saved by another program (LibreOffice, Google Sheets, Numbers) holds that program's results, which can differ from Excel's in a few warning messages. See also the <a href="{root}tools/engine-check/">engine check on the worked examples</a>.</p>
-</div></section>
-<script src="{root}assets/calc/engine.js"></script>
-<script src="{root}assets/calc/xlsx-read.js"></script>
-<script src="{root}assets/calc/live-check.js"></script>
-"""
-page("tools/live-check/index.html", "Live check against Excel — BEST Tools", "Drop a BEST calculator workbook saved in Excel: the browser engine recalculates it and compares every formula cell with Excel's results.",
-     "tools", "tools-engine", LIVE_CHECK, theme="chemicals", subnav=True)
-
 page("tools/engine-check/index.html", "Calculator engine check — BEST Tools", "Verification page: the browser engine recalculates the BEST calculator examples and compares every formula cell with Excel.",
      "tools", "tools-engine", ENGINE_CHECK, theme="chemicals", subnav=True)
 
